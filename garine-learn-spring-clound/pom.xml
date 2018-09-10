@@ -11,6 +11,7 @@
         <module>garine-learn-bootstrap</module>
         <module>garine-learn-config-server</module>
         <module>garine-learn-config-client</module>
+        <module>garine-learn-discover</module>
     </modules>
 
     <packaging>pom</packaging>
