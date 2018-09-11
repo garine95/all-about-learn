@@ -29,4 +29,9 @@ public class DiscoverClient {
     public Object getInstance(@RequestParam("name") String name){
         return discoveryClient.getInstances(name);
     }
+
+    @RequestMapping("/hello")
+    public String hello(){
+        return "hello garine";
+    }
 }

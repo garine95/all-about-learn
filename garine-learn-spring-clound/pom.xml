@@ -12,6 +12,7 @@
         <module>garine-learn-config-server</module>
         <module>garine-learn-config-client</module>
         <module>garine-learn-discover</module>
+        <module>garine-learn-loadblance</module>
     </modules>
 
     <packaging>pom</packaging>
