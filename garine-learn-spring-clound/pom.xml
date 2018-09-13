@@ -13,6 +13,7 @@
         <module>garine-learn-config-client</module>
         <module>garine-learn-discover</module>
         <module>garine-learn-loadblance</module>
+        <module>garine-learn-breaker</module>
     </modules>
 
     <packaging>pom</packaging>
