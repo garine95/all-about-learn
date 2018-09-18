@@ -26,7 +26,7 @@ public class MyConfig implements InitializingBean {
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("---------------myconfig finish"+ myConfigDepend1);
-        System.out.println("---------------myconfig finish"+ this);
+        System.out.println("---------------myconfig finish, myConfigDepend1 is"+ myConfigDepend1);
+        System.out.println("---------------myconfig finish,this is"+ this);
     }
 }

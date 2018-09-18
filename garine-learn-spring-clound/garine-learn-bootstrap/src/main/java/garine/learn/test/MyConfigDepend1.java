@@ -19,12 +19,12 @@ public class MyConfigDepend1 implements InitializingBean{
 
     @PostConstruct
     public void pre(){
-        System.out.println("----------------myconfig1 init");
+        System.out.println("----------------MyConfigDepend1 init");
     }
 
     @Override
     public void afterPropertiesSet() throws Exception {
-        System.out.println("---------------myconfig1 1finish"+ myConfig);
-        System.out.println("---------------myconfig1 finish"+ this);
+        System.out.println("---------------MyConfigDepend1 finish,myconfig is"+ myConfig);
+        System.out.println("---------------MyConfigDepend1 finish,this is"+ this);
     }
 }
