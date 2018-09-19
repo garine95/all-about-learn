@@ -31,7 +31,7 @@ public class DiscoverClient {
     }
 
     @RequestMapping("/hello")
-    public String hello(){
-        return "hello garine";
+    public String hello(@RequestParam("name") String name){
+        return "hello too" + name;
     }
 }
