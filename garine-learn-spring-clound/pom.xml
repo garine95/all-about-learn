@@ -15,6 +15,7 @@
         <module>garine-learn-loadblance</module>
         <module>garine-learn-breaker</module>
         <module>garien-learn-feign</module>
+        <module>garine-learn-gateway</module>
     </modules>
 
     <packaging>pom</packaging>

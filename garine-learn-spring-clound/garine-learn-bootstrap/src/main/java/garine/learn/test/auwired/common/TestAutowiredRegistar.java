@@ -1,7 +1,5 @@
-package garine.learn.test.auwired;
+package garine.learn.test.auwired.common;
 
-import garine.learn.test.MyConfig;
-import garine.learn.test.MyConfigDepend1;
 import org.springframework.beans.BeansException;
 import org.springframework.beans.factory.BeanFactory;
 import org.springframework.beans.factory.BeanFactoryAware;
@@ -10,13 +8,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.support.BeanDefinitionRegistry;
 import org.springframework.context.annotation.ImportBeanDefinitionRegistrar;
 import org.springframework.core.type.AnnotationMetadata;
-import org.springframework.stereotype.Component;
 
 /**
  * @author zhoujy
  * @date 2018年09月18日
  **/
-@Component
 public class TestAutowiredRegistar implements ImportBeanDefinitionRegistrar,BeanFactoryAware,InitializingBean{
     private BeanFactory beanFactory;
 
@@ -29,6 +25,7 @@ public class TestAutowiredRegistar implements ImportBeanDefinitionRegistrar,Bean
         //MyConfig myConfig = beanFactory.getBean(MyConfig.class);
         //System.out.println(myConfig);
         System.out.println(TestAutowiredRegistar.class.getSimpleName() + "-----" +testRegistarDependOn);
+        System.out.println(TestAutowiredRegistar.class.getSimpleName() + "-----" +beanFactory.getBean(TestRegistarDependOn.class));
     }
 
     @Override
