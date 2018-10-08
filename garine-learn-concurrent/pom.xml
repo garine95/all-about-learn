@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>garine.learn</groupId>
-    <artifactId>garine-learn-spring-clound</artifactId>
+    <artifactId>garine-learn-concurrent</artifactId>
     <version>1.0-SNAPSHOT</version>
     <modules>
 
