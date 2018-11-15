@@ -5,9 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @SpringBootApplication
 @EnableDiscoveryClient
@@ -33,5 +31,11 @@ public class DiscoverClient {
     @RequestMapping("/hello")
     public String hello(@RequestParam("name") String name){
         return "hello too" + name;
+    }
+
+    @RequestMapping("/ribbonService")
+    public String ribbonService(){
+        System.out.println("to here");
+        return "hello too ribbon";
     }
 }

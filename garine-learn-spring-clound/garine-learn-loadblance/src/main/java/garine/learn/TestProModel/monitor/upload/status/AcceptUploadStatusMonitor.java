@@ -1,3 +1,4 @@
+/*
 package garine.learn.TestProModel.monitor.upload.status;
 
 import com.fpx.fb4.wms.schedule.model.entity.OTaskAlert;
@@ -11,10 +12,12 @@ import org.springframework.stereotype.Component;
 import javax.annotation.Resource;
 import java.util.List;
 
+*/
 /**
  * @author zhoujy
  * @date 2018年09月13日
- **/
+ **//*
+
 @Component
 public class AcceptUploadStatusMonitor extends AbstractUploadStatusMonitor implements InitializingBean,ApplicationContextAware {
 
@@ -40,3 +43,4 @@ public class AcceptUploadStatusMonitor extends AbstractUploadStatusMonitor imple
 
 
 }
+*/

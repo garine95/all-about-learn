@@ -1,3 +1,4 @@
+/*
 package garine.learn.TestProModel.monitor.upload.status;
 
 import com.fpx.fb4.wms.schedule.model.entity.OTaskAlert;
@@ -12,10 +13,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
+*/
 /**
  * @author zhoujy
  * @date 2018年09月13日
- **/
+ **//*
+
 public abstract class AbstractUploadStatusMonitor implements Monitor {
     List<AbstractUploadStatusProcessor> processes = Lists.newArrayList();
 
@@ -49,3 +52,4 @@ public abstract class AbstractUploadStatusMonitor implements Monitor {
         }
     }
 }
+*/

@@ -1,0 +1,27 @@
+package garine.learn.ribbon.loadblance;
+
+import com.netflix.loadbalancer.IRule;
+import com.netflix.loadbalancer.RandomRule;
+import org.springframework.cloud.client.loadbalancer.LoadBalanced;
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.web.client.RestTemplate;
+
+@Configuration
+public class RibbonConfig {
+
+    /**
+     * 实例化ribbon使用的RestTemplate
+     * @return
+     */
+    @Bean
+    @LoadBalanced
+    public RestTemplate rebbionRestTemplate(){
+        return new RestTemplate();
+    }
+
+    @Bean
+    public IRule ribbonRule() {
+        return new RandomRule();
+    }
+}

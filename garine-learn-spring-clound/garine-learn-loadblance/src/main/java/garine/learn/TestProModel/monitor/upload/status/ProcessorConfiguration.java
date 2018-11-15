@@ -1,3 +1,4 @@
+/*
 package garine.learn.TestProModel.monitor.upload.status;
 
 import com.fpx.common.util.StringUtils;
@@ -10,10 +11,12 @@ import org.springframework.core.annotation.Order;
 
 import javax.annotation.Resource;
 
+*/
 /**
  * @author zhoujy
  * @date 2018年09月13日
- **/
+ **//*
+
 @Configuration
 public class ProcessorConfiguration {
 
@@ -43,3 +46,4 @@ public class ProcessorConfiguration {
          }
     }
 }
+*/
