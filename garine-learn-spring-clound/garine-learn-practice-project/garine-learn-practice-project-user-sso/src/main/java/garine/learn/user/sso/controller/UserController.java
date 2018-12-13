@@ -1,0 +1,75 @@
+package garine.learn.user.sso.controller;
+
+import garine.learn.common.annotations.Anoymous;
+import garine.learn.common.constants.GpmallWebConstant;
+import garine.learn.user.api.IUserCoreService;
+import garine.learn.user.api.dto.UserLoginRequest;
+import garine.learn.user.api.dto.UserLoginResponse;
+import garine.learn.user.sso.controller.support.ResponseData;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import javax.servlet.http.HttpServletResponse;
+
+//import org.springframework.kafka.core.KafkaTemplate;
+
+
+@RestController
+public class UserController extends BaseController{
+
+    @Autowired
+    IUserCoreService userCoreService;
+
+/*    @Autowired
+    KafkaTemplate kafkaTemplate;*/
+
+    @RequestMapping("/loginPage")
+    public String loginPage(){
+        return "/pages/login.html";
+    }
+
+    @Anoymous
+    @PostMapping("/login")
+    public ResponseData doLogin(String username, String password,
+                                HttpServletResponse response){
+        ResponseData data=new ResponseData();
+        UserLoginRequest request=new UserLoginRequest();
+        request.setPassword(password);
+        request.setUserName(username);
+        UserLoginResponse userLoginResponse=userCoreService.login(request);
+        response.addHeader("Set-Cookie",
+                "access_token="+userLoginResponse.getToken()+";Path=/;HttpOnly");
+
+        data.setMessage(userLoginResponse.getMsg());
+        data.setCode(userLoginResponse.getCode());
+        data.setData(GpmallWebConstant.GPMALL_ACTIVITY_ACCESS_URL);
+        return data;
+    }
+
+
+/*    @GetMapping("/register")
+    @Anoymous
+    public @ResponseBody
+    ResponseData register(String username, String password, String mobile){
+        ResponseData data=new ResponseData();
+
+        UserRegisterRequest request=new UserRegisterRequest();
+        request.setMobile(mobile);
+        request.setUsername(username);
+        request.setPassword(password);
+        try {
+            UserRegisterResponse response = userCoreService.register(request);
+            //异步化解耦
+            kafkaTemplate.send("test",response.getUid());
+            data.setMessage(response.getMsg());
+            data.setCode(response.getCode());
+        }catch(Exception e) {
+            data.setMessage(ResponseEnum.FAILED.getMsg());
+            data.setCode(ResponseEnum.FAILED.getCode());
+        }
+        return data;
+    }*/
+
+}
