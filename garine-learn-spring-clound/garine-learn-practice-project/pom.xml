@@ -47,6 +47,7 @@
         <thymeleaf.starter.version>2.1.1.RELEASE</thymeleaf.starter.version>
         <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
         <thymeleaf.dialect.version>2.3.0</thymeleaf.dialect.version>
+        <zookeeper.version>3.4.12</zookeeper.version>
     </properties>
 
     <dependencyManagement>
@@ -118,6 +119,13 @@
                 <groupId>mysql</groupId>
                 <artifactId>mysql-connector-java</artifactId>
                 <version>${mysql.connector.version}</version>
+            </dependency>
+
+            <!-- zookeeper -->
+            <dependency>
+                <groupId>org.apache.zookeeper</groupId>
+                <artifactId>zookeeper</artifactId>
+                <version>${zookeeper.version}</version>
             </dependency>
 
             <!-- https://mvnrepository.com/artifact/org.apache.commons/commons-lang3 -->

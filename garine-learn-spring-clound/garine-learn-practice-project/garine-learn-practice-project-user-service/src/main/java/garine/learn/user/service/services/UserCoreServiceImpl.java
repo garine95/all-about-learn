@@ -1,7 +1,6 @@
 package garine.learn.user.service.services;
 
 
-import com.gupaoedu.user.utils.JwtTokenUtils;
 import garine.learn.user.api.IUserCoreService;
 import garine.learn.user.api.constants.Constants;
 import garine.learn.user.api.constants.ResponseCodeEnum;
@@ -11,6 +10,7 @@ import garine.learn.user.service.dal.persistence.UserMapper;
 import garine.learn.user.service.exception.ExceptionUtil;
 import garine.learn.user.service.exception.ServiceException;
 import garine.learn.user.service.exception.ValidateException;
+import garine.learn.user.service.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;

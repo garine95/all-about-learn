@@ -7,12 +7,14 @@ import garine.learn.user.api.dto.UserLoginRequest;
 import garine.learn.user.api.dto.UserLoginResponse;
 import garine.learn.user.sso.controller.support.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
 
 //import org.springframework.kafka.core.KafkaTemplate;
@@ -20,6 +22,9 @@ import javax.servlet.http.HttpServletResponse;
 
 @Controller
 public class UserController extends BaseController{
+
+    @Resource
+    DiscoveryClient discoveryClient;
 
     @Autowired
     IUserCoreService userCoreService;

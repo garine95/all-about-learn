@@ -1,4 +1,4 @@
-package com.gupaoedu.user.utils;
+package garine.learn.user.service.utils;
 
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
