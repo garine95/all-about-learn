@@ -17,19 +17,20 @@ public interface IUserCoreService {
     @RequestMapping("/login")
     UserLoginResponse login(@RequestBody UserLoginRequest request);
 
-
     /**
      * 校验过程
      * @param request
      * @return
      */
+    @RequestMapping("/validToken")
     CheckAuthResponse validToken(CheckAuthRequest request);
-
 
     /*
      * 注册
      */
+    @RequestMapping("/register")
     UserRegisterResponse register(UserRegisterRequest userRegisterRequest);
+
 
     @GetMapping("/test")
     String testPr();

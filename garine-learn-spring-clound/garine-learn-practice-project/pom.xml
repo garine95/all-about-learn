@@ -42,7 +42,11 @@
         <lombook.version>1.16.8</lombook.version>
         <mysql.connector.version>8.0.13</mysql.connector.version>
         <common.lang3.version>3.8.1</common.lang3.version>
-        <guava.version>25.1-jre</guava.version>
+        <guava.version>26.0-jre</guava.version>
+        <pagehelper.version>5.1.8</pagehelper.version>
+        <thymeleaf.starter.version>2.1.1.RELEASE</thymeleaf.starter.version>
+        <thymeleaf.version>3.0.11.RELEASE</thymeleaf.version>
+        <thymeleaf.dialect.version>2.3.0</thymeleaf.dialect.version>
     </properties>
 
     <dependencyManagement>
@@ -127,8 +131,36 @@
             <dependency>
                 <groupId>com.google.guava</groupId>
                 <artifactId>guava</artifactId>
-                <version>${guava.version}}</version>
+                <version>${guava.version}</version>
             </dependency>
+
+            <!-- paheHelper -->
+            <dependency>
+                <groupId>com.github.pagehelper</groupId>
+                <artifactId>pagehelper</artifactId>
+                <version>${pagehelper.version}</version>
+            </dependency>
+
+            <!-- thymeleaf依赖 -->
+            <dependency>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-thymeleaf</artifactId>
+                <version>${thymeleaf.starter.version}</version>
+            </dependency>
+
+            <dependency>
+                <groupId>nz.net.ultraq.thymeleaf</groupId>
+                <artifactId>thymeleaf-layout-dialect</artifactId>
+                <version>${thymeleaf.dialect.version}</version>
+            </dependency>
+
+            <!-- 引入thymleaf包以启用spring boot自动配置 -->
+            <dependency>
+                <groupId>org.thymeleaf</groupId>
+                <artifactId>thymeleaf</artifactId>
+                <version>${thymeleaf.version}</version>
+            </dependency>
+
         </dependencies>
     </dependencyManagement>
 

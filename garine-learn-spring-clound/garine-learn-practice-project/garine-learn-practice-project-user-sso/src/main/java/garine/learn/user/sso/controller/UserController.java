@@ -7,6 +7,8 @@ import garine.learn.user.api.dto.UserLoginRequest;
 import garine.learn.user.api.dto.UserLoginResponse;
 import garine.learn.user.sso.controller.support.ResponseData;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -16,7 +18,7 @@ import javax.servlet.http.HttpServletResponse;
 //import org.springframework.kafka.core.KafkaTemplate;
 
 
-@RestController
+@Controller
 public class UserController extends BaseController{
 
     @Autowired
@@ -25,9 +27,9 @@ public class UserController extends BaseController{
 /*    @Autowired
     KafkaTemplate kafkaTemplate;*/
 
-    @RequestMapping("/loginPage")
+    @GetMapping("/loginPage")
     public String loginPage(){
-        return "/pages/login.html";
+        return "login";
     }
 
     @Anoymous

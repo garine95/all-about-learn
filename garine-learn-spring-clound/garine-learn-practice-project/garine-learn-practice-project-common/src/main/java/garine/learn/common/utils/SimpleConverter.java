@@ -1,11 +1,12 @@
 package garine.learn.common.utils;
 
-import com.garine.learn.common.provider.dao.domain.PageDTO;
+
 import com.github.pagehelper.PageInfo;
 import com.google.common.base.Joiner;
 import com.google.common.base.Preconditions;
 import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableSet;
+import garine.learn.common.dao.domain.PageDTO;
 import org.springframework.beans.BeanUtils;
 
 import java.text.MessageFormat;
