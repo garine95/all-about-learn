@@ -49,12 +49,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
                 response.setMsg(ResponseCodeEnum.USERORPASSWORD_ERRROR.getMsg());
                 return response;
             }
-            Map<String,Object> map=new HashMap<>();
-            map.put("uid",user.getId());
-            map.put("exp",DateTime.now().plusDays(1).toDate().getTime()/1000);
-
-            response.setToken(JwtTokenUtils.generatorToken(map));
-
+            response.setToken(JwtTokenUtils.generateTokenBy(user.getId() + user.getUsername()));
             response.setUid(user.getId());
             response.setAvatar(user.getAvatar());
             response.setCode(ResponseCodeEnum.SUCCESS.getCode());
@@ -77,7 +72,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
         try{
             beforeValidateAuth(request);
 
-            Claims claims=JwtTokenUtils.phaseToken(request.getToken());
+            Claims claims=JwtTokenUtils.pharseToken(request.getToken());
             response.setUid(claims.get("uid").toString());
             response.setCode(ResponseCodeEnum.SUCCESS.getCode());
             response.setMsg(ResponseCodeEnum.SUCCESS.getMsg());

@@ -6,11 +6,10 @@ $(function(){
             alert("登录信息不能为空!");
             return;
         }
-        $("#password").val(MD5(password));
         $.ajax({
             url:"/login",
             type:"POST",
-            data:{username:username,password:$("#password").val()},
+            data:{username:username,password:MD5(password)},
             success:function(data){
                 if(data.code=="000000"){
                     window.location.href=data.data;
