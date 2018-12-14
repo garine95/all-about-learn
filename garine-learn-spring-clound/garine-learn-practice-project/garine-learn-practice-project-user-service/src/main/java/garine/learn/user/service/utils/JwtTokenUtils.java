@@ -19,7 +19,7 @@ public class JwtTokenUtils {
      */
     public static final Integer  DEFAULT_TOKEN_EXPIRE_TIME = 1000 * 60 * 30;
 
-    public static final String  DEFAULT_TOKEN_SECRETKEY = "123456";
+    public static final String DEFAULT_TOKEN_KEY = "123456";
 
     public static void main(String[] args) {
         System.out.println(generatorSecretkey("123456"));
@@ -50,7 +50,7 @@ public class JwtTokenUtils {
 
     public static Claims pharseToken(String token){
         Jws<Claims> claimsJwt=Jwts.parser()
-                .setSigningKey(generatorSecretkey(DEFAULT_TOKEN_SECRETKEY))
+                .setSigningKey(generatorSecretkey(DEFAULT_TOKEN_KEY))
                 .parseClaimsJws(token);
         return claimsJwt.getBody();
     }
@@ -74,7 +74,7 @@ public class JwtTokenUtils {
      * @return token=base64(header).base64(payload).sinatrue ,
      *         sinatrue=SignatureAlgorithm.HS256( base64(header) + "." + base64(payload) , base64(key))
      *         secretKey=base64(key)
-     *         JWT规范是以上实现，目前jwt包的实现不是
+     *         JWT规范是以上实现
      */
     public static String generateTokenBy(Map<String, Object> header, Map<String, Object> payload, String secretkey){
          return Jwts.builder()
@@ -99,7 +99,7 @@ public class JwtTokenUtils {
     }
 
     public static String generateTokenBy(String userName){
-        return generateTokenBy(userName, generatorSecretkey(DEFAULT_TOKEN_SECRETKEY));
+        return generateTokenBy(userName, generatorSecretkey(DEFAULT_TOKEN_KEY));
     }
 
     public static Long getDefaultTokenExpireTime(){
