@@ -9,6 +9,7 @@ import garine.learn.user.api.dto.CheckAuthRequest;
 import garine.learn.user.api.dto.CheckAuthResponse;
 import garine.learn.user.sso.controller.BaseController;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -18,6 +19,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 
+@Component
 public class TokenIntercepter extends HandlerInterceptorAdapter {
 
     private final String ACCESS_TOKEN="access_token";

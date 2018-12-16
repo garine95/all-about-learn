@@ -5,7 +5,10 @@ import garine.learn.common.constants.GpmallWebConstant;
 import garine.learn.user.api.IUserCoreService;
 import garine.learn.user.api.dto.UserLoginRequest;
 import garine.learn.user.api.dto.UserLoginResponse;
+import garine.learn.user.api.dto.UserRegisterRequest;
+import garine.learn.user.api.dto.UserRegisterResponse;
 import garine.learn.user.sso.controller.support.ResponseData;
+import garine.learn.user.sso.controller.support.ResponseEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.stereotype.Controller;
@@ -34,6 +37,12 @@ public class UserController extends BaseController{
         return "login";
     }
 
+    @GetMapping("/registerPage")
+    public String registerPage(){
+        return "register";
+    }
+
+
     @Anoymous
     @PostMapping("/login")
     @ResponseBody
@@ -54,10 +63,9 @@ public class UserController extends BaseController{
     }
 
 
-/*    @GetMapping("/register")
+    @PostMapping("/register")
     @Anoymous
-    public @ResponseBody
-    ResponseData register(String username, String password, String mobile){
+    public @ResponseBody ResponseData register(String username, String password, String mobile){
         ResponseData data=new ResponseData();
 
         UserRegisterRequest request=new UserRegisterRequest();
@@ -67,7 +75,7 @@ public class UserController extends BaseController{
         try {
             UserRegisterResponse response = userCoreService.register(request);
             //异步化解耦
-            kafkaTemplate.send("test",response.getUid());
+            //kafkaTemplate.send("test",response.getUid());
             data.setMessage(response.getMsg());
             data.setCode(response.getCode());
         }catch(Exception e) {
@@ -75,6 +83,6 @@ public class UserController extends BaseController{
             data.setCode(ResponseEnum.FAILED.getCode());
         }
         return data;
-    }*/
+    }
 
 }

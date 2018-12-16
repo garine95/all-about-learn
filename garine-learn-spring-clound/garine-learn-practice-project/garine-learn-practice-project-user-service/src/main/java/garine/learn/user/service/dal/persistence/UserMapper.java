@@ -21,11 +21,4 @@ public interface UserMapper extends BaseMapper<User> {
      */
     User getUserByUid(Integer uid);
 
-    /**
-     * 添加用户
-     * @param user
-     * @return
-     */
-    int insertSelective(User user);
-
 }

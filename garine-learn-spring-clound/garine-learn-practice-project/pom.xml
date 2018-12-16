@@ -15,6 +15,9 @@
         <module>garine-learn-practice-project-user-service</module>
         <module>garine-learn-practice-project-user-sso</module>
         <module>garine-learn-practice-project-common</module>
+        <module>garine-learn-practice-project-activity-service</module>
+        <module>garine-learn-practice-project-activity-api</module>
+        <module>garine-learn-practice-project-activity-web</module>
     </modules>
 
   <!--  <parent>
@@ -55,6 +58,11 @@
             <dependency>
                 <groupId>garine.learn</groupId>
                 <artifactId>garine-learn-practice-project-user-api</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>garine.learn</groupId>
+                <artifactId>garine-learn-practice-project-activity-api</artifactId>
                 <version>${common.version}</version>
             </dependency>
             <dependency>

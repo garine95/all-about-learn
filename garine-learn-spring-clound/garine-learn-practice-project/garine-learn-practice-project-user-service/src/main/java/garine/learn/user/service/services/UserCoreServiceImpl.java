@@ -14,7 +14,6 @@ import garine.learn.user.service.utils.JwtTokenUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.SignatureException;
-import org.joda.time.DateTime;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
 
 
 
@@ -67,7 +64,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
     }
 
     @Override
-    public CheckAuthResponse validToken(CheckAuthRequest request) {
+    public CheckAuthResponse validToken(@RequestBody CheckAuthRequest request) {
         CheckAuthResponse response=new CheckAuthResponse();
         try{
             beforeValidateAuth(request);
@@ -97,7 +94,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
         return response;
     }
 
-    public UserRegisterResponse register(UserRegisterRequest userRegisterRequest) {
+    public UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest) {
         Log.info("begin UserCoreService.register,request:【"+userRegisterRequest+"】");
 
         UserRegisterResponse response=new UserRegisterResponse();
@@ -131,7 +128,6 @@ public class UserCoreServiceImpl implements IUserCoreService {
         }finally {
             Log.info("register response:【"+response+"】");
         }
-
         return response;
     }
 

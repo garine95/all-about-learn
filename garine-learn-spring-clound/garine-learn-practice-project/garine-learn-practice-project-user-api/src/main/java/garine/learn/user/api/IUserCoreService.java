@@ -23,13 +23,13 @@ public interface IUserCoreService {
      * @return
      */
     @RequestMapping("/validToken")
-    CheckAuthResponse validToken(CheckAuthRequest request);
+    CheckAuthResponse validToken(@RequestBody CheckAuthRequest request);
 
     /*
      * 注册
      */
     @RequestMapping("/register")
-    UserRegisterResponse register(UserRegisterRequest userRegisterRequest);
+    UserRegisterResponse register(@RequestBody UserRegisterRequest userRegisterRequest);
 
 
     @GetMapping("/test")
