@@ -1,6 +1,7 @@
-/*
 package garine.learn.user.sso.controller;
 
+import com.google.code.kaptcha.Constants;
+import com.google.code.kaptcha.Producer;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
@@ -20,7 +21,6 @@ public class CaptchaController {
     @Resource
     private Producer captchaProducer;
 
-    */
 /**
      *
      *                获取验证码图片
@@ -29,8 +29,7 @@ public class CaptchaController {
      * @param         response
      * @return
      * @throws         IOException
-     *//*
-
+     */
     @RequestMapping("getCaptchaCode")
     public ModelAndView getCaptchaCode(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
@@ -58,4 +57,3 @@ public class CaptchaController {
         return null;
     }
 }
-*/

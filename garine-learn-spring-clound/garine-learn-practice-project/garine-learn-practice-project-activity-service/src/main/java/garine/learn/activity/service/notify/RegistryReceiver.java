@@ -4,6 +4,7 @@ package garine.learn.activity.service.notify;
 import garine.learn.activity.service.dal.entitys.ActDrawNum;
 import garine.learn.activity.service.dal.persistence.ActDrawNumMapper;
 import garine.learn.common.utils.JsonUtils;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.kafka.clients.consumer.Consumer;
 import org.apache.kafka.clients.consumer.ConsumerRecord;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -13,6 +14,7 @@ import org.springframework.kafka.support.Acknowledgment;
 import org.springframework.stereotype.Component;
 
 @Component
+@Slf4j
 public class RegistryReceiver {
 
     @Autowired
@@ -24,6 +26,7 @@ public class RegistryReceiver {
         try {
             //幂等校验
             String jsonStr=integerStringConsumerRecord.value();
+            log.warn(jsonStr);
             userBean=(UserBean) JsonUtils.jsonToBean(integerStringConsumerRecord.value(),UserBean.class);
             ActDrawNum actDrawNum=new ActDrawNum();
             actDrawNum.setName(userBean.getName());

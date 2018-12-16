@@ -11,13 +11,12 @@ import garine.learn.user.sso.controller.support.ResponseData;
 import garine.learn.user.sso.controller.support.ResponseEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
-
-//import org.springframework.kafka.core.KafkaTemplate;
 
 
 @Controller
@@ -29,8 +28,8 @@ public class UserController extends BaseController{
     @Autowired
     IUserCoreService userCoreService;
 
-/*    @Autowired
-    KafkaTemplate kafkaTemplate;*/
+   @Autowired
+   KafkaTemplate kafkaTemplate;
 
     @GetMapping("/loginPage")
     public String loginPage(){
@@ -74,8 +73,8 @@ public class UserController extends BaseController{
         request.setPassword(password);
         try {
             UserRegisterResponse response = userCoreService.register(request);
-            //异步化解耦
-            //kafkaTemplate.send("test",response.getUid());
+            //添加抽奖机会
+            kafkaTemplate.send("test",response.getUid());
             data.setMessage(response.getMsg());
             data.setCode(response.getCode());
         }catch(Exception e) {
