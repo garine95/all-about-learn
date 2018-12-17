@@ -2,6 +2,7 @@ package garine.learn.user.sso.controller;
 
 import garine.learn.common.annotations.Anoymous;
 import garine.learn.common.constants.GpmallWebConstant;
+import garine.learn.common.utils.JsonUtils;
 import garine.learn.user.api.IUserCoreService;
 import garine.learn.user.api.dto.UserLoginRequest;
 import garine.learn.user.api.dto.UserLoginResponse;
@@ -9,6 +10,7 @@ import garine.learn.user.api.dto.UserRegisterRequest;
 import garine.learn.user.api.dto.UserRegisterResponse;
 import garine.learn.user.sso.controller.support.ResponseData;
 import garine.learn.user.sso.controller.support.ResponseEnum;
+import org.apache.catalina.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cloud.client.discovery.DiscoveryClient;
 import org.springframework.kafka.core.KafkaTemplate;
@@ -74,7 +76,7 @@ public class UserController extends BaseController{
         try {
             UserRegisterResponse response = userCoreService.register(request);
             //添加抽奖机会
-            kafkaTemplate.send("test",response.getUid());
+            kafkaTemplate.send("test", JsonUtils.beanToJson(response.getUserDTO()));
             data.setMessage(response.getMsg());
             data.setCode(response.getCode());
         }catch(Exception e) {

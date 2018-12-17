@@ -76,11 +76,19 @@
             <version>2.10</version>
         </dependency>
 
+        <!-- mybatis 通用插件,不引入将无法使用BaseMapper -->
+        <dependency>
+            <groupId>tk.mybatis</groupId>
+            <artifactId>mapper-spring-boot-starter</artifactId>
+            <version>2.0.1</version>
+        </dependency>
+
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-base</artifactId>
             <version>1.1.1</version>
         </dependency>
+
         <dependency>
             <groupId>tk.mybatis</groupId>
             <artifactId>mapper-core</artifactId>

@@ -13,6 +13,7 @@ public class UserRegisterResponse extends AbstractResponse implements Serializab
 
     private Integer uid;
 
+    private UserDTO userDTO;
 
     public Integer getUid() {
         return uid;
@@ -20,5 +21,13 @@ public class UserRegisterResponse extends AbstractResponse implements Serializab
 
     public void setUid(Integer uid) {
         this.uid = uid;
+    }
+
+    public UserDTO getUserDTO() {
+        return userDTO;
+    }
+
+    public void setUserDTO(UserDTO userDTO) {
+        this.userDTO = userDTO;
     }
 }

@@ -8,8 +8,8 @@ import garine.learn.activity.api.draw.bean.ActivityTurntableDrawReq;
 import garine.learn.activity.api.draw.bean.AwardDrawRecordBean;
 import garine.learn.activity.service.dal.entitys.ActDrawAward;
 import garine.learn.activity.service.dal.entitys.ActDrawAwardItem;
-import garine.learn.activity.service.dal.entitys.ActDrawNum;
-import garine.learn.activity.service.dal.entitys.ActDrawRecord;
+import garine.learn.activity.service.dal.entitys.ActivityDrawNum;
+import garine.learn.activity.service.dal.entitys.ActivityDrawRecord;
 import garine.learn.activity.service.dal.persistence.ActDrawAwardItemMapper;
 import garine.learn.activity.service.dal.persistence.ActDrawAwardMapper;
 import garine.learn.activity.service.dal.persistence.ActDrawNumMapper;
@@ -76,9 +76,9 @@ public class ActivityTurntableDrawServiceImpl implements ActivityTurntableDrawSe
         redisTemplate.opsForValue().set(DrawContants.DRAW_ITEM,awardItems);
         redisTemplate.expire(DrawContants.DRAW_ITEM,DrawContants.EXPIRE_TIME, TimeUnit.DAYS);
         for(ActDrawAwardItem awardItem:awardItems){//遍历所有奖项获得每个奖项对应的奖品
-            ActDrawAward actDrawAward=actDrawAwardMapper.queryAwardById(awardItem.getAwardId());
-            redisTemplate.opsForValue().set(RedisKeyManager.getAwardRedisKey(actDrawAward),actDrawAward);
-            redisTemplate.expire(RedisKeyManager.getAwardRedisKey(actDrawAward),DrawContants.EXPIRE_TIME,TimeUnit.DAYS);
+            ActDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(awardItem.getAwardId());
+            redisTemplate.opsForValue().set(RedisKeyManager.getAwardRedisKey(activityDrawAward), activityDrawAward);
+            redisTemplate.expire(RedisKeyManager.getAwardRedisKey(activityDrawAward),DrawContants.EXPIRE_TIME,TimeUnit.DAYS);
             //TODO 如果奖品是有数量限制的，比如京东券 ，那么针对这类的奖品需要放到队列中
 //            redisTemplate.opsForList().leftPush()
         }
@@ -98,7 +98,7 @@ public class ActivityTurntableDrawServiceImpl implements ActivityTurntableDrawSe
             activityTurntableDrawProxy.doDrawForProxy(activityDrawContext);
 
             AwardDrawRecordBean awardDrawRecordBean=new AwardDrawRecordBean();
-            awardDrawRecordBean.setLevel(activityDrawContext.getActDrawAwardItem().getLevel());
+            awardDrawRecordBean.setLevel(activityDrawContext.getActivityDrawAwardItem().getLevel());
             awardDrawRecordBean.setName(activityDrawContext.getCurrentUser().getRealName());
             awardDrawRecordBean.setUid(activityDrawContext.getActivityTurntableDrawReq().getUid());
             recordBeanResultResp.setResult(awardDrawRecordBean);
@@ -147,7 +147,7 @@ public class ActivityTurntableDrawServiceImpl implements ActivityTurntableDrawSe
     @Override
     public Integer queryRemainDrawCount(@RequestBody ActivityTurntableDrawReq activityTurntableDrawReq) {
         try {
-            ActDrawNum drawNum = actDrawNumMapper.queryDrawNumForUid(activityTurntableDrawReq.getUid());
+            ActivityDrawNum drawNum = actDrawNumMapper.queryDrawNumForUid(activityTurntableDrawReq.getUid());
             if(drawNum!=null && drawNum.getMaxNumber() > 0){
                 return drawNum.getMaxNumber()-drawNum.getNowNumber();
             }
@@ -164,14 +164,14 @@ public class ActivityTurntableDrawServiceImpl implements ActivityTurntableDrawSe
             throw new RuntimeException("uid不能为空");
         }
         List<AwardDrawRecordBean> awardDrawRecordBeans=new ArrayList<>();
-        List<ActDrawRecord> actDrawRecords=actDrawRecordMapper.queryDrawRecordList();
-        for(int i=0;i<actDrawRecords.size();i++){
+        List<ActivityDrawRecord> activityDrawRecords =actDrawRecordMapper.queryDrawRecordList();
+        for(int i = 0; i< activityDrawRecords.size(); i++){
             AwardDrawRecordBean awardDrawRecordBean=new AwardDrawRecordBean();
-            awardDrawRecordBean.setId(actDrawRecords.get(i).getId());
-            awardDrawRecordBean.setLevel(actDrawRecords.get(i).getLevel());
-            awardDrawRecordBean.setMobile(actDrawRecords.get(i).getMobile());
-            awardDrawRecordBean.setName(actDrawRecords.get(i).getAwardName());
-            awardDrawRecordBean.setUid(actDrawRecords.get(i).getUid());
+            awardDrawRecordBean.setId(activityDrawRecords.get(i).getId());
+            awardDrawRecordBean.setLevel(activityDrawRecords.get(i).getLevel());
+            awardDrawRecordBean.setMobile(activityDrawRecords.get(i).getMobile());
+            awardDrawRecordBean.setName(activityDrawRecords.get(i).getAwardName());
+            awardDrawRecordBean.setUid(activityDrawRecords.get(i).getUid());
             awardDrawRecordBeans.add(awardDrawRecordBean);
         }
         return awardDrawRecordBeans;

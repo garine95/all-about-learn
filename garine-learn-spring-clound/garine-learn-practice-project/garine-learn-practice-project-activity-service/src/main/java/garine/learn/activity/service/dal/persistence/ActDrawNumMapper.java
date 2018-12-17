@@ -1,7 +1,7 @@
 package garine.learn.activity.service.dal.persistence;
 
 
-import garine.learn.activity.service.dal.entitys.ActDrawNum;
+import garine.learn.activity.service.dal.entitys.ActivityDrawNum;
 import garine.learn.common.dao.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
@@ -11,14 +11,14 @@ import org.apache.ibatis.annotations.Mapper;
  * 风骚的Michael 老师
  */
 @Mapper
-public interface ActDrawNumMapper extends BaseMapper {
+public interface ActDrawNumMapper extends BaseMapper<ActivityDrawNum> {
 
     /**
      * 插入抽奖次数记录
-     * @param ActDrawNum
+     * @param ActivityDrawNum
      * @return
      */
-    int inputDrawNumber(ActDrawNum ActDrawNum);
+    int inputDrawNumber(ActivityDrawNum ActivityDrawNum);
 
     /**
      * 更新已抽次数
@@ -39,5 +39,5 @@ public interface ActDrawNumMapper extends BaseMapper {
      * @param uid
      * @return
      */
-    ActDrawNum queryDrawNumForUid(int uid);
+    ActivityDrawNum queryDrawNumForUid(int uid);
 }

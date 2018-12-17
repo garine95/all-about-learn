@@ -15,9 +15,9 @@ public class ActivityDrawContext {
 
     private ActivityTurntableDrawReq activityTurntableDrawReq;
 
-    private ActDrawAwardItem actDrawAwardItem;
+    private ActDrawAwardItem activityDrawAwardItem;
 
-    private ActDrawAward actDrawAward;
+    private ActDrawAward activityDrawAward;
 
     private UserQueryResponse currentUser;
 
@@ -29,12 +29,12 @@ public class ActivityDrawContext {
         this.activityTurntableDrawReq = activityTurntableDrawReq;
     }
 
-    public ActDrawAwardItem getActDrawAwardItem() {
-        return actDrawAwardItem;
+    public ActDrawAwardItem getActivityDrawAwardItem() {
+        return activityDrawAwardItem;
     }
 
-    public void setActDrawAwardItem(ActDrawAwardItem actDrawAwardItem) {
-        this.actDrawAwardItem = actDrawAwardItem;
+    public void setActivityDrawAwardItem(ActDrawAwardItem activityDrawAwardItem) {
+        this.activityDrawAwardItem = activityDrawAwardItem;
     }
 
     public UserQueryResponse getCurrentUser() {
@@ -45,11 +45,11 @@ public class ActivityDrawContext {
         this.currentUser = currentUser;
     }
 
-    public ActDrawAward getActDrawAward() {
-        return actDrawAward;
+    public ActDrawAward getActivityDrawAward() {
+        return activityDrawAward;
     }
 
-    public void setActDrawAward(ActDrawAward actDrawAward) {
-        this.actDrawAward = actDrawAward;
+    public void setActivityDrawAward(ActDrawAward activityDrawAward) {
+        this.activityDrawAward = activityDrawAward;
     }
 }

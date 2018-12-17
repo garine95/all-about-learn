@@ -17,7 +17,7 @@ public class CheckAuthResponse extends AbstractResponse {
     @Override
     public String toString() {
         return "CheckAuthResponse{" +
-                "uid='" + uid + '\'' +
+                "id='" + uid + '\'' +
                 "} " + super.toString();
     }
 }

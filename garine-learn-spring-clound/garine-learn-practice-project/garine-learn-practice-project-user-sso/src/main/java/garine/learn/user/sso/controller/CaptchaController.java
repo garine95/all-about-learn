@@ -16,7 +16,7 @@ import java.awt.image.BufferedImage;
 import java.io.IOException;
 
 @Controller
-@RequestMapping("captcha")
+@RequestMapping("/captcha")
 public class CaptchaController {
     @Resource
     private Producer captchaProducer;
@@ -30,7 +30,7 @@ public class CaptchaController {
      * @return
      * @throws         IOException
      */
-    @RequestMapping("getCaptchaCode")
+    @RequestMapping("/getCaptchaCode")
     public ModelAndView getCaptchaCode(HttpServletRequest request, HttpServletResponse response) throws IOException{
         HttpSession session = request.getSession();
 

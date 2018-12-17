@@ -1,8 +1,11 @@
 package garine.learn.activity.service.dal.entitys;
 
+import lombok.Data;
+
 import java.io.Serializable;
 import java.util.Date;
 
+@Data
 public class ActDrawAward implements Serializable{
 
     private static final long serialVersionUID = 1765800142109468438L;
@@ -17,49 +20,9 @@ public class ActDrawAward implements Serializable{
 
     private Date createTime;
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
-
-    public String getAwardName() {
-        return awardName;
-    }
-
-    public void setAwardName(String awardName) {
-        this.awardName = awardName;
-    }
-
-    public String getAwardInfo() {
-        return awardInfo;
-    }
-
-    public void setAwardInfo(String awardInfo) {
-        this.awardInfo = awardInfo;
-    }
-
-    public Integer getAwardType() {
-        return awardType;
-    }
-
-    public void setAwardType(Integer awardType) {
-        this.awardType = awardType;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
     @Override
     public String toString() {
-        return "ActDrawAward{" +
+        return "ActivityDrawAward{" +
                 "id=" + id +
                 ", awardName='" + awardName + '\'' +
                 ", awardInfo='" + awardInfo + '\'' +

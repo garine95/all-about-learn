@@ -15,7 +15,7 @@ import org.springframework.stereotype.Service;
 public class NoneRewardProcessor extends AbstractRewardProcessor {
 
     protected void processor(ActivityDrawContext activityDrawContext) {
-        logger.info("用户:{},获得奖项:{}",activityDrawContext.getActivityTurntableDrawReq().getUid(),activityDrawContext.getActDrawAwardItem().getItemName());
+        logger.info("用户:{},获得奖项:{}",activityDrawContext.getActivityTurntableDrawReq().getUid(),activityDrawContext.getActivityDrawAwardItem().getItemName());
         modifyAwardRecord(activityDrawContext); //保存记录
     }
 

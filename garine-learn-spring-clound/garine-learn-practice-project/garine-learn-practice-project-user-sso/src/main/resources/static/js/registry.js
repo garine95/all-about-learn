@@ -108,7 +108,7 @@ $(function(){
                     if(data.code=="000000"){
                         layer.msg("恭喜你，注册成功,2秒后自动跳转到登陆页面");
                         setTimeout(function(){
-                            location.href="/pages/login.html";
+                            location.href="/loginPage";
                         },2000);
                     }else{
                         alert(data.msg);

@@ -3,7 +3,7 @@ package garine.learn.activity.service.services.processor;
 
 
 import garine.learn.activity.service.dal.entitys.ActDrawAward;
-import garine.learn.activity.service.dal.entitys.ActDrawRecord;
+import garine.learn.activity.service.dal.entitys.ActivityDrawRecord;
 import garine.learn.activity.service.dal.persistence.ActDrawRecordMapper;
 import garine.learn.activity.service.services.processor.constants.DrawContants;
 import garine.learn.activity.service.services.processor.exception.UnRewardException;
@@ -26,9 +26,9 @@ public abstract class AbstractRewardProcessor implements RewardProcessor<Activit
     private void beforeProcessor(ActivityDrawContext activityDrawContext) {
         //判断奖项当天发放总数以及整个活动过程中的总数：total_num、day_total_num
         if(validDayAwardNum(activityDrawContext)&&validTotalAwardNum(activityDrawContext)){
-            ActDrawAward actDrawAward=(ActDrawAward)redisTemplate.opsForValue().get(DrawContants.DRAW_AWARD+getAwardType()+":"+activityDrawContext.getActDrawAwardItem().getAwardId());
+            ActDrawAward activityDrawAward =(ActDrawAward)redisTemplate.opsForValue().get(DrawContants.DRAW_AWARD+getAwardType()+":"+activityDrawContext.getActivityDrawAwardItem().getAwardId());
             //TODO 判断奖品的状态
-            activityDrawContext.setActDrawAward(actDrawAward);
+            activityDrawContext.setActivityDrawAward(activityDrawAward);
         }else{
             throw new UnRewardException("当前奖项已达到当日最大限制");
         }
@@ -52,13 +52,13 @@ public abstract class AbstractRewardProcessor implements RewardProcessor<Activit
      * 保存中奖记录
      */
     protected void modifyAwardRecord(ActivityDrawContext activityDrawContext) {
-        ActDrawRecord actDrawRecord=new ActDrawRecord();
-        actDrawRecord.setAwardName(activityDrawContext.getActDrawAward().getAwardName());
-        actDrawRecord.setLevel(activityDrawContext.getActDrawAwardItem().getLevel());
-        actDrawRecord.setMobile(activityDrawContext.getCurrentUser().getMobile());
-        actDrawRecord.setUid(activityDrawContext.getActivityTurntableDrawReq().getUid());
-        actDrawRecord.setName(activityDrawContext.getCurrentUser().getRealName());
-        actDrawRecordMapper.addActDrawRecord(actDrawRecord);
+        ActivityDrawRecord activityDrawRecord =new ActivityDrawRecord();
+        activityDrawRecord.setAwardName(activityDrawContext.getActivityDrawAward().getAwardName());
+        activityDrawRecord.setLevel(activityDrawContext.getActivityDrawAwardItem().getLevel());
+        activityDrawRecord.setMobile(activityDrawContext.getCurrentUser().getMobile());
+        activityDrawRecord.setUid(activityDrawContext.getActivityTurntableDrawReq().getUid());
+        activityDrawRecord.setName(activityDrawContext.getCurrentUser().getRealName());
+        actDrawRecordMapper.addActDrawRecord(activityDrawRecord);
     }
 
 

@@ -24,7 +24,7 @@ public class ActivityTurntableDrawReq implements Serializable{
     @Override
     public String toString() {
         return "ActivityTurntableDrawReq{" +
-                "uid=" + uid +
+                "id=" + uid +
                 '}';
     }
 }

@@ -51,12 +51,12 @@ public class ActivityTurntableDrawProxy implements ApplicationContextAware {
 
             ActDrawAwardItem item = doPlay(awardItems);
 
-            ActDrawAward actDrawAward=actDrawAwardMapper.queryAwardById(item.getAwardId());
+            ActDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(item.getAwardId());
 
-            activityDrawContext.setActDrawAwardItem(item);
+            activityDrawContext.setActivityDrawAwardItem(item);
 
             //奖品的子域   ; //抽奖职能、  奖品发放职能
-            rewardProcessorMap.get(actDrawAward.getAwardType()).doReword(activityDrawContext);
+            rewardProcessorMap.get(activityDrawAward.getAwardType()).doReword(activityDrawContext);
         }catch(UnRewardException e){
             logger.info("未抽到奖品或者出现异常的情况下");
         }finally {

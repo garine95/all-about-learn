@@ -6,7 +6,7 @@ import garine.learn.common.dao.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ActDrawAwardMapper extends BaseMapper {
+public interface ActDrawAwardMapper extends BaseMapper<ActDrawAward> {
 
 
     /**

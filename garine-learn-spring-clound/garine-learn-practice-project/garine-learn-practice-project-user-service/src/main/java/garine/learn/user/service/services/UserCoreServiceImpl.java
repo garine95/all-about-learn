@@ -1,6 +1,7 @@
 package garine.learn.user.service.services;
 
 
+import com.garine.learn.common.util.SimpleConverter;
 import garine.learn.user.api.IUserCoreService;
 import garine.learn.user.api.constants.Constants;
 import garine.learn.user.api.constants.ResponseCodeEnum;
@@ -70,7 +71,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
             beforeValidateAuth(request);
 
             Claims claims=JwtTokenUtils.pharseToken(request.getToken());
-            response.setUid(claims.get("uid").toString());
+            response.setUid(claims.get("id").toString());
             response.setCode(ResponseCodeEnum.SUCCESS.getCode());
             response.setMsg(ResponseCodeEnum.SUCCESS.getMsg());
 
@@ -108,11 +109,14 @@ public class UserCoreServiceImpl implements IUserCoreService {
             user.setSex(userRegisterRequest.getSex());
             user.setStatus(Constants.NORMAL_USER_STATUS);
             user.setCreateTime(new Date());
-
             int effectRow=userMapper.insertSelective(user);
             if(effectRow>0){
+                User cri = new User();
+                cri.setUsername(user.getUsername());
                 response.setCode(ResponseCodeEnum.SUCCESS.getCode());
                 response.setMsg(ResponseCodeEnum.SUCCESS.getMsg());
+                User newUser = userMapper.selectOne(cri);
+                response.setUserDTO(SimpleConverter.convert(newUser, UserDTO.class));
                 return  response;
             }
             response.setCode(ResponseCodeEnum.SYSTEM_BUSY.getCode());

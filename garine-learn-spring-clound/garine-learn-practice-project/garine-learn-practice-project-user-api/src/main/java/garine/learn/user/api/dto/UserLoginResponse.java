@@ -47,7 +47,7 @@ public class UserLoginResponse extends AbstractResponse {
     @Override
     public String toString() {
         return "UserLoginResponse{" +
-                "uid=" + uid +
+                "id=" + uid +
                 ", avatar='" + avatar + '\'' +
                 ", mobile='" + mobile + '\'' +
                 ", token='" + token + '\'' +

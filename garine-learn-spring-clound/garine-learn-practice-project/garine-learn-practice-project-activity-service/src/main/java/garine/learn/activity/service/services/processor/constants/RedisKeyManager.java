@@ -20,7 +20,7 @@ public class RedisKeyManager {
         return DrawContants.DRAWING_PREFIX+String.valueOf(activityTurntableDrawReq.getUid());
     }
 
-    public static String getAwardRedisKey(ActDrawAward actDrawAward){
-        return DrawContants.DRAW_AWARD+actDrawAward.getAwardType()+":"+actDrawAward.getId();
+    public static String getAwardRedisKey(ActDrawAward activityDrawAward){
+        return DrawContants.DRAW_AWARD+ activityDrawAward.getAwardType()+":"+ activityDrawAward.getId();
     }
 }
