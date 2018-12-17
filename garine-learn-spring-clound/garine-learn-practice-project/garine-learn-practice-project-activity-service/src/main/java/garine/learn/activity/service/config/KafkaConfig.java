@@ -34,10 +34,21 @@ public class KafkaConfig {
         return props;
     }
 
+    /**
+     * 不使用spring boot默认方式创建的DefaultKafkaConsumerFactory，新建一个
+     * @return
+     */
+    @Bean("batchAckProduceFactory")
+    public DefaultKafkaConsumerFactory batchConsumerFactory(){
+        return new DefaultKafkaConsumerFactory(consumerProperties());
+    }
+
+
     @Bean("batchAckConsumerFactory")
-    public ConcurrentKafkaListenerContainerFactory ackBatchFactory() {
+    public ConcurrentKafkaListenerContainerFactory ackBatchFactory(DefaultKafkaConsumerFactory batchConsumerFactory) {
+        //指定使用新建的DefaultKafkaConsumerFactory
         ConcurrentKafkaListenerContainerFactory factory = new ConcurrentKafkaListenerContainerFactory();
-        factory.setConsumerFactory(new DefaultKafkaConsumerFactory(consumerProperties()));
+        factory.setConsumerFactory(batchConsumerFactory);
         factory.getContainerProperties().setAckMode(AbstractMessageListenerContainer.AckMode.MANUAL_IMMEDIATE);
         factory.setConcurrency(5);
         factory.setBatchListener(true);
@@ -59,14 +70,23 @@ public class KafkaConfig {
         return props;
     }
 
+    /**
+     * 不使用spring boot默认方式创建的DefaultKafkaProducerFactory，新建一个
+     * @return
+     */
     @Bean("batchAckProduceFactory")
-    @Qualifier("batchAckProduceFactory")
     public DefaultKafkaProducerFactory batchProduceFactory(){
         return new DefaultKafkaProducerFactory(producerProperties());
     }
 
+
+    /**
+     * 不使用spring boot创建的KafkaTemplate，新建一个
+     * @param batchProduceFactory
+     * @return
+     */
     @Bean
-    public KafkaTemplate kafkaTemplate(@Qualifier("batchAckProduceFactory")DefaultKafkaProducerFactory batchProduceFactory){
+    public KafkaTemplate kafkaTemplate(DefaultKafkaProducerFactory batchProduceFactory){
         return new KafkaTemplate(batchProduceFactory);
     }
 }
