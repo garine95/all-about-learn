@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.Date;
 
 @Data
-public class ActDrawAward implements Serializable{
+public class ActivityDrawAward implements Serializable{
 
     private static final long serialVersionUID = 1765800142109468438L;
 
