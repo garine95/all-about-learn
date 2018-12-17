@@ -15,12 +15,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 @Slf4j
-public class RegistryReceiver {
+public class KafkaMessageReceiver {
 
     @Autowired
     ActDrawNumMapper actDrawNumMapper;
 
-    @KafkaListener(topics = {"test"})
+    @KafkaListener(topics = {"test"}, containerFactory = "ackBatchFactory")
     public void registryReceiver(ConsumerRecord<Integer, String> integerStringConsumerRecord, Acknowledgment acknowledgment, Consumer consumer) {
         UserBean userBean=null;
         try {
