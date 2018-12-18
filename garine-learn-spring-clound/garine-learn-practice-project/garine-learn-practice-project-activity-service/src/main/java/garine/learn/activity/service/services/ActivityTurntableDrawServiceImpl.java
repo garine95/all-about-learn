@@ -6,8 +6,8 @@ import garine.learn.activity.api.commons.ReturnCodeEnum;
 import garine.learn.activity.api.draw.ActivityTurntableDrawService;
 import garine.learn.activity.api.draw.bean.ActivityTurntableDrawReq;
 import garine.learn.activity.api.draw.bean.AwardDrawRecordBean;
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
-import garine.learn.activity.service.dal.entitys.ActDrawAwardItem;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAwardItem;
 import garine.learn.activity.service.dal.entitys.ActivityDrawNum;
 import garine.learn.activity.service.dal.entitys.ActivityDrawRecord;
 import garine.learn.activity.service.dal.persistence.ActDrawAwardItemMapper;
@@ -69,14 +69,14 @@ public class ActivityTurntableDrawServiceImpl implements ActivityTurntableDrawSe
     public void initDrawData() throws Exception {
         logger.info("开始初始化奖品数据");
         //获得所有奖项：一等奖、二等奖、三等奖..
-        List<ActDrawAwardItem> awardItems=this.actDrawAwardItemMapper.queryAwardItem();
+        List<ActivityDrawAwardItem> awardItems=this.actDrawAwardItemMapper.queryAwardItem();
         if(awardItems==null||awardItems.isEmpty()){
             throw new Exception("奖品数据未创建，初始化失败");
         }
         redisTemplate.opsForValue().set(DrawContants.DRAW_ITEM,awardItems);
         redisTemplate.expire(DrawContants.DRAW_ITEM,DrawContants.EXPIRE_TIME, TimeUnit.DAYS);
-        for(ActDrawAwardItem awardItem:awardItems){//遍历所有奖项获得每个奖项对应的奖品
-            ActDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(awardItem.getAwardId());
+        for(ActivityDrawAwardItem awardItem:awardItems){//遍历所有奖项获得每个奖项对应的奖品
+            ActivityDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(awardItem.getAwardId());
             redisTemplate.opsForValue().set(RedisKeyManager.getAwardRedisKey(activityDrawAward), activityDrawAward);
             redisTemplate.expire(RedisKeyManager.getAwardRedisKey(activityDrawAward),DrawContants.EXPIRE_TIME,TimeUnit.DAYS);
             //TODO 如果奖品是有数量限制的，比如京东券 ，那么针对这类的奖品需要放到队列中

@@ -89,7 +89,7 @@ public class JwtTokenUtils {
         defaultHeader.put("typ", "JWT");
 
         Map<String, Object> payload = Maps.newHashMap();
-        payload.put("userName", userName);
+        payload.put("uid", userName);
         payload.put("exp", exp);
         return generateTokenBy(defaultHeader, payload, secretkey);
     }

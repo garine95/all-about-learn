@@ -2,7 +2,7 @@ package garine.learn.activity.service.services.processor;
 
 
 
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
 import garine.learn.activity.service.dal.entitys.ActivityDrawRecord;
 import garine.learn.activity.service.dal.persistence.ActDrawRecordMapper;
 import garine.learn.activity.service.services.processor.constants.DrawContants;
@@ -26,7 +26,7 @@ public abstract class AbstractRewardProcessor implements RewardProcessor<Activit
     private void beforeProcessor(ActivityDrawContext activityDrawContext) {
         //判断奖项当天发放总数以及整个活动过程中的总数：total_num、day_total_num
         if(validDayAwardNum(activityDrawContext)&&validTotalAwardNum(activityDrawContext)){
-            ActDrawAward activityDrawAward =(ActDrawAward)redisTemplate.opsForValue().get(DrawContants.DRAW_AWARD+getAwardType()+":"+activityDrawContext.getActivityDrawAwardItem().getAwardId());
+            ActivityDrawAward activityDrawAward =(ActivityDrawAward)redisTemplate.opsForValue().get(DrawContants.DRAW_AWARD+getAwardType()+":"+activityDrawContext.getActivityDrawAwardItem().getAwardId());
             //TODO 判断奖品的状态
             activityDrawContext.setActivityDrawAward(activityDrawAward);
         }else{

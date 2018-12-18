@@ -2,7 +2,7 @@ package garine.learn.activity.service.services.processor.constants;
 
 
 import garine.learn.activity.api.draw.bean.ActivityTurntableDrawReq;
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
 
 /**
  * 腾讯课堂搜索 咕泡学院
@@ -20,7 +20,7 @@ public class RedisKeyManager {
         return DrawContants.DRAWING_PREFIX+String.valueOf(activityTurntableDrawReq.getUid());
     }
 
-    public static String getAwardRedisKey(ActDrawAward activityDrawAward){
+    public static String getAwardRedisKey(ActivityDrawAward activityDrawAward){
         return DrawContants.DRAW_AWARD+ activityDrawAward.getAwardType()+":"+ activityDrawAward.getId();
     }
 }

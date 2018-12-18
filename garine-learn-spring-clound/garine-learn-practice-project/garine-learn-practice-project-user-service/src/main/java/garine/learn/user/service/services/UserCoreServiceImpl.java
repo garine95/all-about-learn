@@ -47,7 +47,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
                 response.setMsg(ResponseCodeEnum.USERORPASSWORD_ERRROR.getMsg());
                 return response;
             }
-            response.setToken(JwtTokenUtils.generateTokenBy(user.getId() + user.getUsername()));
+            response.setToken(JwtTokenUtils.generateTokenBy(user.getId()+""));
             response.setUid(user.getId());
             response.setAvatar(user.getAvatar());
             response.setCode(ResponseCodeEnum.SUCCESS.getCode());
@@ -71,7 +71,7 @@ public class UserCoreServiceImpl implements IUserCoreService {
             beforeValidateAuth(request);
 
             Claims claims=JwtTokenUtils.pharseToken(request.getToken());
-            response.setUid(claims.get("id").toString());
+            response.setUid(claims.get("uid").toString());
             response.setCode(ResponseCodeEnum.SUCCESS.getCode());
             response.setMsg(ResponseCodeEnum.SUCCESS.getMsg());
 

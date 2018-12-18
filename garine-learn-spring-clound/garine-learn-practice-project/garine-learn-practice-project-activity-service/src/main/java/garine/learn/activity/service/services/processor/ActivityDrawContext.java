@@ -2,8 +2,8 @@ package garine.learn.activity.service.services.processor;
 
 
 import garine.learn.activity.api.draw.bean.ActivityTurntableDrawReq;
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
-import garine.learn.activity.service.dal.entitys.ActDrawAwardItem;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAwardItem;
 import garine.learn.user.api.dto.UserQueryResponse;
 
 /**
@@ -15,9 +15,9 @@ public class ActivityDrawContext {
 
     private ActivityTurntableDrawReq activityTurntableDrawReq;
 
-    private ActDrawAwardItem activityDrawAwardItem;
+    private ActivityDrawAwardItem activityDrawAwardItem;
 
-    private ActDrawAward activityDrawAward;
+    private ActivityDrawAward activityDrawAward;
 
     private UserQueryResponse currentUser;
 
@@ -29,11 +29,11 @@ public class ActivityDrawContext {
         this.activityTurntableDrawReq = activityTurntableDrawReq;
     }
 
-    public ActDrawAwardItem getActivityDrawAwardItem() {
+    public ActivityDrawAwardItem getActivityDrawAwardItem() {
         return activityDrawAwardItem;
     }
 
-    public void setActivityDrawAwardItem(ActDrawAwardItem activityDrawAwardItem) {
+    public void setActivityDrawAwardItem(ActivityDrawAwardItem activityDrawAwardItem) {
         this.activityDrawAwardItem = activityDrawAwardItem;
     }
 
@@ -45,11 +45,11 @@ public class ActivityDrawContext {
         this.currentUser = currentUser;
     }
 
-    public ActDrawAward getActivityDrawAward() {
+    public ActivityDrawAward getActivityDrawAward() {
         return activityDrawAward;
     }
 
-    public void setActivityDrawAward(ActDrawAward activityDrawAward) {
+    public void setActivityDrawAward(ActivityDrawAward activityDrawAward) {
         this.activityDrawAward = activityDrawAward;
     }
 }

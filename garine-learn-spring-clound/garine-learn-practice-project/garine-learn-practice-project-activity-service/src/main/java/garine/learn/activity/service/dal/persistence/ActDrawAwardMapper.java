@@ -1,12 +1,12 @@
 package garine.learn.activity.service.dal.persistence;
 
 
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
 import garine.learn.common.dao.BaseMapper;
 import org.apache.ibatis.annotations.Mapper;
 
 @Mapper
-public interface ActDrawAwardMapper extends BaseMapper<ActDrawAward> {
+public interface ActDrawAwardMapper extends BaseMapper<ActivityDrawAward> {
 
 
     /**
@@ -14,5 +14,5 @@ public interface ActDrawAwardMapper extends BaseMapper<ActDrawAward> {
      * @param id
      * @return
      */
-    ActDrawAward queryAwardById(Integer id);
+    ActivityDrawAward queryAwardById(Integer id);
 }

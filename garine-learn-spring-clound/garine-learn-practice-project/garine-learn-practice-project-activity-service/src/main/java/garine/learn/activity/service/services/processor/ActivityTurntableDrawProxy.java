@@ -1,8 +1,8 @@
 package garine.learn.activity.service.services.processor;
 
 
-import garine.learn.activity.service.dal.entitys.ActDrawAward;
-import garine.learn.activity.service.dal.entitys.ActDrawAwardItem;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAward;
+import garine.learn.activity.service.dal.entitys.ActivityDrawAwardItem;
 import garine.learn.activity.service.dal.persistence.ActDrawAwardMapper;
 import garine.learn.activity.service.services.processor.constants.DrawContants;
 import garine.learn.activity.service.services.processor.exception.RewardException;
@@ -47,11 +47,11 @@ public class ActivityTurntableDrawProxy implements ApplicationContextAware {
     public ActivityDrawContext doDrawForProxy(ActivityDrawContext activityDrawContext){
         //TODO 检查当前用户剩余抽奖次数
         try {
-            List<ActDrawAwardItem> awardItems = (List<ActDrawAwardItem>) redisTemplate.opsForValue().get(DrawContants.DRAW_ITEM);
+            List<ActivityDrawAwardItem> awardItems = (List<ActivityDrawAwardItem>) redisTemplate.opsForValue().get(DrawContants.DRAW_ITEM);
 
-            ActDrawAwardItem item = doPlay(awardItems);
+            ActivityDrawAwardItem item = doPlay(awardItems);
 
-            ActDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(item.getAwardId());
+            ActivityDrawAward activityDrawAward =actDrawAwardMapper.queryAwardById(item.getAwardId());
 
             activityDrawContext.setActivityDrawAwardItem(item);
 
@@ -71,15 +71,15 @@ public class ActivityTurntableDrawProxy implements ApplicationContextAware {
      * @param awardItems
      * @return
      */
-    private ActDrawAwardItem doPlay(List<ActDrawAwardItem> awardItems) {
-        ActDrawAwardItem awardItem = null;
+    private ActivityDrawAwardItem doPlay(List<ActivityDrawAwardItem> awardItems) {
+        ActivityDrawAwardItem awardItem = null;
         if (awardItems.isEmpty()) {
             throw new RewardException("奖项未设定或未正确初始化");
         }
         int lastScope = 0;
         Collections.shuffle(awardItems);
         Map<Integer, int[]> awardItemScope = new HashMap<Integer, int[]>();
-        for (ActDrawAwardItem item : awardItems) { //item.getProbability=0.05 = 5%
+        for (ActivityDrawAwardItem item : awardItems) { //item.getProbability=0.05 = 5%
             int currentScope = lastScope + new BigDecimal(item.getProbability().floatValue()).multiply(new BigDecimal(mulriple)).intValue();
             awardItemScope.put(item.getId(), new int[]{lastScope + 1, currentScope});
             lastScope = currentScope;
@@ -94,7 +94,7 @@ public class ActivityTurntableDrawProxy implements ApplicationContextAware {
                     break;
                 }
         }
-        for (ActDrawAwardItem item : awardItems) {
+        for (ActivityDrawAwardItem item : awardItems) {
             if (item.getId().intValue() == luckyPrizeId) {
                 awardItem = item;
                 break;

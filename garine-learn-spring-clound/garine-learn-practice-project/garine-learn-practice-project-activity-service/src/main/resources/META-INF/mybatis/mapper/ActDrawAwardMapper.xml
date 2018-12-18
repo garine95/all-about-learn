@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="garine.learn.activity.service.dal.persistence.ActDrawAwardMapper" >
-  <resultMap id="BaseResultMap" type="garine.learn.activity.service.dal.entitys.ActDrawAward" >
+  <resultMap id="BaseResultMap" type="garine.learn.activity.service.dal.entitys.ActivityDrawAward" >
     <id column="id" property="id" jdbcType="INTEGER" />
     <result column="award_name" property="awardName" jdbcType="VARCHAR" />
     <result column="award_info" property="awardInfo" jdbcType="VARCHAR" />
