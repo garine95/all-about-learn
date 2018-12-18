@@ -48,6 +48,12 @@
         <dependency>
             <groupId>garine.learn</groupId>
             <artifactId>garine-learn-practice-project-common</artifactId>
+            <exclusions>
+                <exclusion>
+                    <groupId>tk.mybatis</groupId>
+                    <artifactId>mapper-spring-boot-starter</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
 
         <dependency>
