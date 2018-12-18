@@ -4,12 +4,10 @@ package garine.learn.user.sso.interceptor;
 import garine.learn.common.annotations.Anoymous;
 import garine.learn.common.constants.GpmallWebConstant;
 import garine.learn.common.utils.CookieUtil;
-import garine.learn.user.api.IUserCoreService;
 import garine.learn.user.api.dto.CheckAuthRequest;
 import garine.learn.user.api.dto.CheckAuthResponse;
+import garine.learn.user.sso.api.UserCoreServiceRemote;
 import garine.learn.user.sso.controller.BaseController;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
@@ -19,13 +17,15 @@ import javax.servlet.http.HttpServletResponse;
 import java.lang.reflect.Method;
 
 
-@Component
 public class TokenIntercepter extends HandlerInterceptorAdapter {
 
     private final String ACCESS_TOKEN="access_token";
 
-    @Autowired
-    IUserCoreService iUserCoreService;
+    UserCoreServiceRemote userCoreServiceRemote;
+
+    public TokenIntercepter(UserCoreServiceRemote userCoreServiceRemote) {
+        this.userCoreServiceRemote = userCoreServiceRemote;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request,
@@ -48,21 +48,27 @@ public class TokenIntercepter extends HandlerInterceptorAdapter {
         String token= CookieUtil.getCookieValue(request,ACCESS_TOKEN);
         boolean isAjax=CookieUtil.isAjax(request);
         if(StringUtils.isEmpty(token)){
+            //没token，直接返回回到登录业或者注册页面
             if(isAjax){
                 response.setContentType("text/html;charset=UTF-8");
                 response.getWriter().write("{\"code\":\"-1\",\"msg\":\"error\"}");
                 return false;
             }
-            response.sendRedirect(GpmallWebConstant.GPMALL_SSO_ACCESS_URL);
+            String uri = request.getRequestURI();
+            if ("/loginPage".equals(uri) || "/registerPage".equals(uri)){
+                return true;
+            }else {
+                response.sendRedirect(GpmallWebConstant.GPMALL_SSO_ACCESS_URL);
+            }
             return false;
         }
         CheckAuthRequest checkAuthRequest=new CheckAuthRequest();
         checkAuthRequest.setToken(token);
-        CheckAuthResponse checkAuthResponse=iUserCoreService.validToken(checkAuthRequest);
+        CheckAuthResponse checkAuthResponse=userCoreServiceRemote.validToken(checkAuthRequest);
         if("000000".equals(checkAuthResponse.getCode())){
             BaseController baseController=(BaseController)bean;
             baseController.setUid(checkAuthResponse.getUid());
-            return super.preHandle(request, response, handler);
+            super.preHandle(request, response, handler);
         }
         if(isAjax){
             response.setContentType("text/html;charset=UTF-8");
@@ -70,7 +76,8 @@ public class TokenIntercepter extends HandlerInterceptorAdapter {
                     ",\"msg\":\""+checkAuthResponse.getMsg()+"\"}");
             return false;
         }
-        response.sendRedirect(GpmallWebConstant.GPMALL_SSO_ACCESS_URL);
+        //token校验通过，重定向到access页面
+        response.sendRedirect(GpmallWebConstant.GPMALL_ACTIVITY_ACCESS_URL);
         return false;
     }
 
