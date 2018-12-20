@@ -1,5 +1,7 @@
 package garine.learn.common.sdk.redis;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.JedisCluster;
 
@@ -12,6 +14,8 @@ import java.util.List;
  * @date 2018年12月19日
  **/
 public class RedisDistributeLock {
+
+    private Logger logger = LoggerFactory.getLogger(RedisDistributeLock.class);
 
     private JedisCluster jedisCluster;
 
@@ -49,7 +53,7 @@ public class RedisDistributeLock {
     public boolean tryLock(String lockKey, String lockVal, long expiryTime, Long loopTryTime){
         Long endTime = System.currentTimeMillis() + loopTryTime;
         while (System.currentTimeMillis() < endTime){
-            if (tryLock(lockKey, lockKey, expiryTime)){
+            if (tryLock(lockKey, lockVal, expiryTime)){
                 return true;
             }
         }
@@ -57,21 +61,45 @@ public class RedisDistributeLock {
     }
 
     /**
-     * 一次尝试，快速失败
+     * 根据loopTryTime循环重试
+     * @param lockKey 锁key
+     * @param lockVal 锁值，用于解锁校验
+     * @param expiryTime 锁过期时间
+     * @param retryTimes 重试次数
+     * @param setpTime 每次重试间隔 mills
+     * @return 是否获得锁
+     */
+    public boolean tryLock(String lockKey, String lockVal, long expiryTime, int retryTimes, long setpTime){
+        while (retryTimes > 0){
+            if (tryLock(lockKey, lockVal, expiryTime)){
+                return true;
+            }
+            retryTimes--;
+            try {
+                Thread.sleep(setpTime);
+            } catch (InterruptedException e) {
+                logger.error("get distribute lock error" +e.getLocalizedMessage());
+            }
+        }
+        return false;
+    }
+
+    /**
+     * 一次尝试，快速失败。不支持重入
      * @param lockKey 锁key
      * @param lockVal 锁值，用于解锁校验
      * @param expiryTime 锁过期时间 MILLS
      * @return 是否获得锁
      */
     public boolean tryLock(String lockKey, String lockVal, long expiryTime){
-        //相比一般的分布式锁，这里把setNx和setExpiry操作合并到一起，jedis保证原子性，避免连个命令之间出现当即等问题
+        //相比一般的分布式锁，这里把setNx和setExpiry操作合并到一起，jedis保证原子性，避免连个命令之间出现宕机等问题
         //这里也可以我们使用lua脚本实现
         String result = jedisCluster.set(lockKey, lockVal, "NX", "PX", expiryTime);
         return LOCK_SUCCESS_CODE.equalsIgnoreCase(result);
     }
 
     /**
-     * 释放分布式锁
+     * 释放分布式锁，释放失败最可能是业务执行时间长于lockKey过期时间，应当结合业务场景调整过期时间
      * @param lockKey 锁key
      * @param lockVal 锁值
      * @return 是否释放成功
