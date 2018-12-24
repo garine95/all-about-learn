@@ -64,6 +64,11 @@
             </dependency>
             <dependency>
                 <groupId>garine.learn</groupId>
+                <artifactId>garine-learn-practice-project-common-sdk</artifactId>
+                <version>${common.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>garine.learn</groupId>
                 <artifactId>garine-learn-practice-project-activity-api</artifactId>
                 <version>${common.version}</version>
             </dependency>

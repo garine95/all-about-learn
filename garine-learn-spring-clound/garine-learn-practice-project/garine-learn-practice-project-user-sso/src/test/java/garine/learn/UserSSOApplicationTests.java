@@ -17,7 +17,7 @@ public class UserSSOApplicationTests {
 	KafkaTemplate kafkaTemplate;
 	@Test
 	public void testKafkaSendMsg() {
-		kafkaTemplate.send("test", 0,12,"1222");
+		kafkaTemplate.send("test", 0,"ss","1222");
 	}
 
 }

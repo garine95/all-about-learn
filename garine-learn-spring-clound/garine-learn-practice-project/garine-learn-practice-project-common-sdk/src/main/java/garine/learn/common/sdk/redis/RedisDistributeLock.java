@@ -4,6 +4,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.util.StringUtils;
 import redis.clients.jedis.JedisCluster;
+import redis.clients.jedis.exceptions.JedisNoScriptException;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,11 +16,13 @@ import java.util.List;
  **/
 public class RedisDistributeLock {
 
+    public static void main(String[] args) {
+        System.out.println(DISTRIBUTE_LOCK_SCRIPT_UNLOCK_VAL);
+    }
+
     private Logger logger = LoggerFactory.getLogger(RedisDistributeLock.class);
 
     private JedisCluster jedisCluster;
-
-    private static final String DISTRIBUTE_LOCK_SCRIPT_UNLOCK_KEY = "distribute_lock_script_unlock_key";
 
     /**
      * lua脚本：判断锁住值是否为当前线程持有，是的话解锁，不是的话解锁失败
@@ -42,6 +45,7 @@ public class RedisDistributeLock {
         this.jedisCluster = jedisCluster;
     }
 
+
     /**
      * 根据loopTryTime循环重试
      * @param lockKey 锁key
@@ -50,7 +54,7 @@ public class RedisDistributeLock {
      * @param loopTryTime 获取失败时，循环重试获取锁的时长
      * @return 是否获得锁
      */
-    public boolean tryLock(String lockKey, String lockVal, long expiryTime, Long loopTryTime){
+    public boolean tryLock(String lockKey, String lockVal, long expiryTime, long loopTryTime){
         Long endTime = System.currentTimeMillis() + loopTryTime;
         while (System.currentTimeMillis() < endTime){
             if (tryLock(lockKey, lockVal, expiryTime)){
@@ -105,19 +109,33 @@ public class RedisDistributeLock {
      * @return 是否释放成功
      */
     public boolean tryUnLock(String lockKey, String lockVal){
-        //redis支持脚本缓存，返回哈希码，后续可以继续用来调用脚本
-        if (StringUtils.isEmpty(unlockSha1) || !jedisCluster.scriptExists(unlockSha1, DISTRIBUTE_LOCK_SCRIPT_UNLOCK_KEY)){
-            unlockSha1 = storeScript();
-        }
         List<String> keys = new ArrayList<>();
         keys.add(lockKey);
         List<String> argv = new ArrayList<>();
         argv.add(lockVal);
-        Object result = jedisCluster.evalsha(unlockSha1, keys, argv);
-        return UNLOCK_SUCCESS_CODE.equals(result);
+        try {
+            Object result = jedisCluster.evalsha(unlockSha1, keys, argv);
+            return UNLOCK_SUCCESS_CODE.equals(result);
+        }catch (JedisNoScriptException e){
+            //没有脚本缓存时，重新发送缓存
+            logger.info("try to store script......");
+            storeScript(lockKey);
+            Object result = jedisCluster.evalsha(unlockSha1, keys, argv);
+            return UNLOCK_SUCCESS_CODE.equals(result);
+        }catch (Exception e){
+            e.printStackTrace();
+            return false;
+        }
     }
 
-    private String storeScript(){
-        return jedisCluster.scriptLoad(DISTRIBUTE_LOCK_SCRIPT_UNLOCK_VAL, DISTRIBUTE_LOCK_SCRIPT_UNLOCK_KEY);
+    /**
+     * 由于使用redis集群，因此每个节点都需要各自缓存一份脚本数据
+     * @param slotKey 用来定位对应的slot的slotKey
+     */
+    public void storeScript(String slotKey){
+        if (StringUtils.isEmpty(unlockSha1) || !jedisCluster.scriptExists(unlockSha1, slotKey)){
+            //redis支持脚本缓存，返回哈希码，后续可以继续用来调用脚本
+            unlockSha1 = jedisCluster.scriptLoad(DISTRIBUTE_LOCK_SCRIPT_UNLOCK_VAL, slotKey);
+        }
     }
 }
