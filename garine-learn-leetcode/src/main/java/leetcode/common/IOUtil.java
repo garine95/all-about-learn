@@ -38,4 +38,11 @@ public class IOUtil {
         long used =  cur - begin;
         System.out.println("耗时：" + (used) +"输出："+ str);
     }
+
+    public static void printArray(int[] array){
+        for (int i : array) {
+            System.out.print(i + ",");
+        }
+
+    }
 }
