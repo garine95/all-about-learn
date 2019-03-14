@@ -7,7 +7,7 @@ import leetcode.common.IOUtil;
  */
 public class QuickSort {
     public static void main(String[] args) {
-        int[] array = new int[]{5,7,2,7,8,13,56,6,22,0,-1};
+        int[] array = new int[]{5,7,2,7,8,13,56,6,22,0,-1,323};
         quickSort(array, 0, array.length - 1);
         IOUtil.printArray(array);
     }
